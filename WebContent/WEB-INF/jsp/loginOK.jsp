@@ -7,7 +7,7 @@
 <title>スッキリ商店</title>
 </head>
 <body>
-<p>ようこそ<c:out value="${userId}" />さん!</p>
+<p>ようこそ<c:out value="${userId}" />さん!!!</p>
 <a href="/sukkiriShop/WelcomeServlet">トップへ</a>
 </body>
 </html>

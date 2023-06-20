@@ -14,7 +14,7 @@ import model.LoginLogic;
 import model.User;
 
 /**
- * Servlet implementation class Login
+ * Servlet implementation class LoginM
  */
 @WebServlet("/Login")
 public class Login extends HttpServlet {
@@ -36,13 +36,14 @@ public class Login extends HttpServlet {
 
 		// ログイン処理
 		LoginLogic loginLogic = new LoginLogic();
+		//boolean isLogin = loginLogic.execute(user);
 		boolean isLogin = loginLogic.execute(user);
 
 		// ログイン成功時の処理
 		if(isLogin){
 			// ユーザー情報をセッションスコープに保存
 			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", user);
+			session.setAttribute("loginUser",user);
 		}
 
 		// ログイン結果画面にフォワード

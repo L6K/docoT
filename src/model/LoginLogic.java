@@ -3,7 +3,7 @@ package model;
 import dao.AccountDAO;
 
 public class LoginLogic {
-	public boolean execute(Login login){
+	public boolean execute(User login){
 		AccountDAO dao = new AccountDAO();
 		Account account = dao.findByLogin(login);
 
@@ -11,11 +11,12 @@ public class LoginLogic {
 		return account != null;
 
 	}
-
-	public boolean execute(User user){
-		if(user.getPass().equals("1234")){
-			return true;
-		}
-			return false;
-		}
 }
+
+//	public boolean execute(User user){
+//		if(user.getPass().equals("1234")){
+//			return true;
+//		}
+//			return false;
+//		}
+//}

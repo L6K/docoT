@@ -70,7 +70,7 @@ public class AccountDAO {
 			conn = DriverManager.getConnection(url, user, password);
 
 			// SELECT
-			String sql = "INSERT INTO ACCOUNT (PASS,NAME) VALUES (?,?)";
+			String sql = "INSERT INTO users (PASS,NAME) VALUES (?,?)";
 
 			PreparedStatement ps = conn.prepareStatement(sql);
 

@@ -13,5 +13,6 @@
 		パスワード：<input type="password" name="pass"><br>
 		<input type="submit" value="ログイン">
 	</form>
+	<a href="/docoTsubu/AccountRegister">新規登録</a>
 </body>
 </html>

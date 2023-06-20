@@ -11,7 +11,7 @@ import model.User;;
 
 public class AccountDAO {
 	// // 接続環境
-	private final String url = "jdbc:mysql://localhost:3306/sukkiriShop?" + "useUnicode=true&characterEncoding=utf8";
+	private final String url = "jdbc:mysql://localhost:3306/docotsubu?" + "useUnicode=true&characterEncoding=utf8";
 	private final String user = "root";
 	private final String password = "root";
 
@@ -25,7 +25,7 @@ public class AccountDAO {
 			// 接続
 			conn = DriverManager.getConnection(url, user, password);
 			// SELECT
-			String sql = "SELECT USER_ID,PASS,MAIL,NAME,AGE FROM ACCOUNT WHERE USER_ID = ? AND PASS = ?";
+			String sql = "SELECT PASS,NAME FROM users WHERE NAME = ? AND PASS = ?";
 
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, login.getName());
@@ -35,13 +35,10 @@ public class AccountDAO {
 			ResultSet rs = ps.executeQuery();
 
 			if (rs.next()) {
-				String userId = rs.getString("USER_ID");
 				String pass = rs.getString("PASS");
-				String mail = rs.getString("MAIL");
 				String name = rs.getString("NAME");
-				int age = rs.getInt("AGE");
 
-				account = new Account(userId, pass, mail, name, age);
+				account = new Account(pass, name);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -73,15 +70,12 @@ public class AccountDAO {
 			conn = DriverManager.getConnection(url, user, password);
 
 			// SELECT
-			String sql = "INSERT INTO ACCOUNT (USER_ID,PASS,MAIL,NAME,AGE) VALUES (?,?,?,?,?)";
+			String sql = "INSERT INTO ACCOUNT (PASS,NAME) VALUES (?,?)";
 
 			PreparedStatement ps = conn.prepareStatement(sql);
 
-			ps.setString(1, account.getUserId());
-			ps.setString(2, account.getPass());
-			ps.setString(3, account.getMail());
-			ps.setString(4, account.getName());
-			ps.setInt(5, account.getAge());
+			ps.setString(1, account.getPass());
+			ps.setString(2, account.getName());
 
 			// 実行
 			result = ps.executeUpdate();

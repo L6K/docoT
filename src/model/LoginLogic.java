@@ -5,7 +5,7 @@ import dao.AccountDAO;
 public class LoginLogic {
 	public boolean execute(User login){
 		AccountDAO dao = new AccountDAO();
-		Account account = dao.findByLogin(login);
+		User account = dao.findByLogin(login);
 
 
 		return account != null;

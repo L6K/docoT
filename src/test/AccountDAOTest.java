@@ -1,7 +1,6 @@
 package test;
 
 import dao.AccountDAO;
-import model.Account;
 import model.User;
 
 public class AccountDAOTest {
@@ -14,7 +13,7 @@ public class AccountDAOTest {
 	public static void testFindByLogin1(){
 		User login = new User("湊 雄輔","abcd");
 		AccountDAO dao = new AccountDAO();
-		Account result = dao.findByLogin(login);
+		User result = dao.findByLogin(login);
 		if(result!=null&&
 				result.getPass().equals("abcd")&&
 				result.getName().equals("湊 雄輔")){
@@ -27,7 +26,7 @@ public class AccountDAOTest {
 	public static void testFindByLogin2(){
 		User login=new User("minato","abcde");
 		AccountDAO dao = new AccountDAO();
-		Account result = dao.findByLogin(login);
+		User result = dao.findByLogin(login);
 		if(result==null){
 			System.out.println("testFindByLogin2:成功しました");
 		}else{

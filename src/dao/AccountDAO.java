@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import model.Account;
 import model.User;;
 
 public class AccountDAO {
@@ -15,9 +14,9 @@ public class AccountDAO {
 	private final String user = "root";
 	private final String password = "root";
 
-	public Account findByLogin(User login) {
+	public User findByLogin(User login) {
 		Connection conn = null;
-		Account account = null;
+		User account = null;
 
 		try {
 			// JDBCドライバを読み込み
@@ -38,7 +37,7 @@ public class AccountDAO {
 				String pass = rs.getString("PASS");
 				String name = rs.getString("NAME");
 
-				account = new Account(pass, name);
+				account = new User(name, pass);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -59,7 +58,7 @@ public class AccountDAO {
 
 //----------------------------------------------------------------------------------
 
-	public int registerAccount(Account account) {
+	public int registerAccount(User account) {
 		Connection conn = null;
 		int result= 0;
 
@@ -80,6 +79,43 @@ public class AccountDAO {
 			// 実行
 			result = ps.executeUpdate();
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return result;
+	}
+//----------------------------------------------------------------------------------
+	public int deleteAccount(User account){
+		Connection conn = null;
+		int result=0;
+		try{
+			// JDBCドライバを読み込み
+			Class.forName("com.mysql.jdbc.Driver");
+			// 接続
+			conn = DriverManager.getConnection(url, user, password);
+
+			// SELECT
+			String sql = "DELETE FROM users WHERE NAME = ? AND PASS = ?";
+
+			PreparedStatement ps = conn.prepareStatement(sql);
+
+			ps.setString(1, account.getName());
+			ps.setString(2, account.getPass());
+
+			// 実行
+			result = ps.executeUpdate();
+
+		}catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

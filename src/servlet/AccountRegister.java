@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.Account;
 import model.AccountRegisterLogic;
 import model.User;
 
@@ -47,7 +46,7 @@ public class AccountRegister extends HttpServlet {
 		String pass = request.getParameter("pass");
 		String name = request.getParameter("name");
 
-		Account a= new Account(pass,name);
+		User a= new User(name,pass);
 		AccountRegisterLogic arl = new AccountRegisterLogic();
 		boolean result = arl.execute(a);
 

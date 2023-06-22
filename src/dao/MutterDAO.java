@@ -76,7 +76,7 @@ public class MutterDAO {
 			//プレースホルダによるSQL分の組み立て
 			//SQL文の中にクエスチョンマーク（？）の形でパラメータを埋め込んで仮のSQL文を作る
 			//利点・・・SQL文の見易さ・不正な検索を防止
-			String sql = "INSERT INTO MUTTER(NAME , TEXT) VALUES(?,?)";
+			String sql = "INSERT INTO MUTTER(NAME , TEXT,IMAGE) VALUES(?,?,?)";
 
 			PreparedStatement ps = conn.prepareStatement(sql);
 
@@ -84,6 +84,7 @@ public class MutterDAO {
 			//第一引数・・・  (？)の場所   , 第二引数・・・値
 			ps.setString( 1 , mutter.getUserName() );
 			ps.setString( 2 , mutter.getText() );
+			ps.setByte(3, mutter.getImage());
 
 			//SELECT文の際に使用したexecuteQuery()の戻り値は
 			//検索の結果が格納されているResultSetオブジェクト

@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import model.GetMutterListLogic;
 import model.Mutter;
@@ -18,6 +20,7 @@ import model.PostMutterLogic;
 import model.User;
 
 @WebServlet("/Main")
+@
 public class Main extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -67,6 +70,11 @@ public class Main extends HttpServlet {
 		// リクエストパラメータの取得
 		request.setCharacterEncoding("UTF-8");
 		String text = request.getParameter("text");
+		Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
+        InputStream fileContent = filePart.getInputStream();
+
+        byte[] buffer = new byte[fileContent.available()];
+        fileContent.read(buffer);
 
 		// 入力値チェック
 		if(text != null && text.length() != 0){

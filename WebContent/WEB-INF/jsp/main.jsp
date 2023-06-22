@@ -17,6 +17,7 @@
 
 <p><a href="/docoTsubu/Main">更新</a></p>
 <form action="/docoTsubu/Main" method="post">
+<input type="file" name="image" accept="image/*">
 <input type="text" name="text">
 <input type="submit" value="つぶやく">
 </form>

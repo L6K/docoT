@@ -107,7 +107,7 @@ public class AccountDAO {
 			// SELECT
 			String sql = "DELETE FROM users WHERE NAME = ? AND PASS = ?";
 
-			PreparedStatement ps = conn.prepareStatement(sql);
+			PreparedStatement ps = conn.prepareStatement(sql); //アカウント削除
 
 			ps.setString(1, account.getName());
 			ps.setString(2, account.getPass());

@@ -12,6 +12,7 @@
 <p>
 <c:out value="${loginUser.name}"/>さん、ログイン中
 <a href="/docoTsubu/Logout">ログアウト</a>
+<a href="/docoTsubu/AccountDelete">サービス退会</a>
 </p>
 
 <p><a href="/docoTsubu/Main">更新</a></p>

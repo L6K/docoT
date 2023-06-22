@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Mutter;
+import model.User;
 
 
 public class MutterDAO {
@@ -112,4 +113,40 @@ public class MutterDAO {
 		return false;
 
 	}//create
+
+//-----------------------------------------------------------------------------------------------------
+	//全ツイ消し
+	public boolean allTweetClean(User a){
+		Connection conn = null;
+		try{
+		Class.forName("com.mysql.jdbc.Driver");
+
+		conn = DriverManager.getConnection(url, user, password);
+
+		String sql = "DELETE FROM Mutter WHERE NAME=?";
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setString(1, a.getName());
+		int result = ps.executeUpdate();
+
+		//１行更新できたら
+		if(result == 1){
+			return true;
+		}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		} // try
+
+
+		return false;
+	}
 }//class

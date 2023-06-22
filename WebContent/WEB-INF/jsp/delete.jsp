@@ -8,8 +8,9 @@
 <title>アカウント削除</title>
 </head>
 <body>
-<form action="/docoTsubu/AccountRegister" method="post">
-パスワードを入力してください<input type="password" name="passCheck"><br>
+<form action="/docoTsubu/AccountDelete" method="post">
+<c:out value="${loginUser.name }"/>さんのパスワードを入力してください<input type="password" name="passCheck"><br>
+
 <input type="submit" value="退会">
 
 </form>

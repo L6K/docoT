@@ -16,7 +16,7 @@
 </p>
 
 <p><a href="/docoTsubu/Main">更新</a></p>
-<form action="/docoTsubu/Main" method="post">
+<form action="/docoTsubu/Main" method="post" enctype="multipart/form-data">
 <input type="file" name="image" accept="image/*">
 <input type="text" name="text">
 <input type="submit" value="つぶやく">
@@ -26,7 +26,11 @@
 </c:if>
 <c:forEach var="mutter" items="${mutterList}">
 <p><c:out value="${mutter.userName }"/>:
-<c:out value="${mutter.text }"/></p>
+<c:out value="${mutter.text }"/><br>
+<c:if test="${not empty mutter.imagePath }">
+<img src="/docoTsubu/upload/${mutter.imagePath }">
+</c:if>
+</p>
 </c:forEach>
 
 </body>

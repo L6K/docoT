@@ -8,7 +8,7 @@ public class Mutter implements Serializable {
 	private int id;			// id
 	private String userName;	// ユーザー名
 	private String text;		// つぶやき内容
-	private byte image;
+	private String imagePath;
 
 	// メソッド
 	// コンストラクタ
@@ -19,10 +19,10 @@ public class Mutter implements Serializable {
 		this.text = text;
 	}
 
-	public Mutter(String userName, String text,byte image){
+	public Mutter(String userName, String text,String image){
 		this.userName = userName;
 		this.text = text;
-		this.image = image;
+		this.imagePath = image;
 	}
 
 	public Mutter(int id, String userName, String text){
@@ -33,11 +33,11 @@ public class Mutter implements Serializable {
 
 	}
 
-	public Mutter(int id,String userName, String text,byte image){
+	public Mutter(int id,String userName, String text,String image){
 		this.id = id;
 		this.userName = userName;
 		this.text = text;
-		this.image = image;
+		this.imagePath = image;
 	}
 
 	public int getId(){
@@ -52,8 +52,8 @@ public class Mutter implements Serializable {
 		return this.text;
 	}
 
-	public byte getImage(){
-		return this.image;
+	public String getImagePath(){
+		return this.imagePath;
 	}
 
 }

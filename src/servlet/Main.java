@@ -1,12 +1,13 @@
 package servlet;
 
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ import model.PostMutterLogic;
 import model.User;
 
 @WebServlet("/Main")
-@
+@MultipartConfig
 public class Main extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -70,14 +71,18 @@ public class Main extends HttpServlet {
 		// リクエストパラメータの取得
 		request.setCharacterEncoding("UTF-8");
 		String text = request.getParameter("text");
-		Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
-        InputStream fileContent = filePart.getInputStream();
-
-        byte[] buffer = new byte[fileContent.available()];
-        fileContent.read(buffer);
-
+		Part filePart = request.getPart("image"); // 画像をPartオブジェクトとして取得
+		String fileNM = "";
+        if(filePart.getSize()!=0){//ファイルがある場合
+		    String filename=filePart.getSubmittedFileName();//ファイル名を取得
+		    fileNM=filename;
+            String path=getServletContext().getRealPath("/upload");//アップロードするフォルダ
+            filePart.write(path+File.separator+filename);//引数で与えた場所にファイルを保存する
+            //画像のURLhttp://localhost:8080/docoTsubu/upload/xxxx.jpg
+        }
 		// 入力値チェック
 		if(text != null && text.length() != 0){
+
 			// アプリケーションスコープに保存されたつぶやきリスト取得
 			ServletContext application = this.getServletContext();
 			List<Mutter> mutterList = (List<Mutter>)application.getAttribute("mutterList");
@@ -92,12 +97,21 @@ public class Main extends HttpServlet {
 //			postMutterLogic.execute(mutter, mutterList);
 
 			// DB連携方針のリストに追加
-			Mutter mutter = new Mutter(loginUser.getName(), text);
+			if(filePart.getSize()!=0){
+				Mutter mutter1 = new Mutter(loginUser.getName(), text,fileNM);
+				PostMutterLogic postMutterLogic = new PostMutterLogic();
+				postMutterLogic.execute(mutter1);
+
+				// アプリケーションスコープにつぶやきリストを保存
+				application.setAttribute("mutterList", mutterList);
+			}else{
+			Mutter mutter2 = new Mutter(loginUser.getName(), text);
 			PostMutterLogic postMutterLogic = new PostMutterLogic();
-			postMutterLogic.execute(mutter);
+			postMutterLogic.execute(mutter2);
 
 			// アプリケーションスコープにつぶやきリストを保存
 			application.setAttribute("mutterList", mutterList);
+			}
 		}else{
 
 			// エラーメッセージをリクエストスコープに保存

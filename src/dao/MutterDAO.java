@@ -30,7 +30,7 @@ public class MutterDAO {
 
 			conn = DriverManager.getConnection(url, user, password);
 
-			String sql = "SELECT ID , NAME , TEXT FROM MUTTER ORDER BY ID DESC";
+			String sql = "SELECT ID , NAME , TEXT,IMAGE FROM MUTTER ORDER BY ID DESC";
 
 			PreparedStatement ps = conn.prepareStatement(sql);
 
@@ -40,8 +40,9 @@ public class MutterDAO {
 				int id = rs.getInt("ID");
 				String name = rs.getString("NAME");
 				String text = rs.getString("TEXT");
+				String imagePath = rs.getString("IMAGE");
 
-				Mutter mutter = new Mutter( id , name , text);
+				Mutter mutter = new Mutter( id , name , text,imagePath);
 				mutterList.add(mutter);
 			}
 		} catch (SQLException e) {
@@ -84,7 +85,7 @@ public class MutterDAO {
 			//第一引数・・・  (？)の場所   , 第二引数・・・値
 			ps.setString( 1 , mutter.getUserName() );
 			ps.setString( 2 , mutter.getText() );
-			ps.setByte(3, mutter.getImage());
+			ps.setString( 3, mutter.getImagePath());
 
 			//SELECT文の際に使用したexecuteQuery()の戻り値は
 			//検索の結果が格納されているResultSetオブジェクト
